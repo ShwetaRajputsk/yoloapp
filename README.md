@@ -27,7 +27,7 @@
 [Click here to download the APK](https://drive.google.com/file/d/1AMUNj-oy-MhxsTBKLSwfV7SeWFwsLI3r/view?usp=sharing)  
 
 ### 🎥 Demo Video  
-[Watch the demo video](#)  
+[Watch the demo video](https://drive.google.com/file/d/18vG5IYGVS5IDvcMSloUUymqjXkbg8pPs/view?usp=sharing)  
 
 
 
