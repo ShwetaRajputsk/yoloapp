@@ -1,0 +1,32 @@
+name: yolo_pay_app
+description: A Flutter project for Yolo Pay app.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  faker: ^2.0.0
+  flutter_credit_card: ^3.0.6
+  provider: ^6.0.0
+  flutter_svg: ^1.0.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  flutter_neumorphic: ^3.2.0 
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/rupay.png
+    - assets/card_background.jpg
+    - assets/yolo.svg
+    - assets/yesbank.png
+   
