@@ -21,6 +21,16 @@
 
 ---
 
+## 📲 Download & Install  
+
+### 🔗 Download APK  
+[Click here to download the APK](https://drive.google.com/file/d/1AMUNj-oy-MhxsTBKLSwfV7SeWFwsLI3r/view?usp=sharing)  
+
+### 🎥 Demo Video  
+[Watch the demo video](#)  
+
+
+
 ## **📂 Project Structure**  
 
 ```bash
