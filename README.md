@@ -22,7 +22,7 @@
 ## 📲 Download & Install  
 
 ### 🔗 Download APK  
-[Click here to download the APK](https://drive.google.com/file/d/1AMUNj-oy-MhxsTBKLSwfV7SeWFwsLI3r/view?usp=sharing)  
+[Click here to download the APK](https://drive.google.com/file/d/1omMfLLCX9ZeDC9E-UHABlwdxM12L9Mz_/view?usp=sharing)  
 
 ### 🎥 Demo Video  
 [Watch the demo video](https://drive.google.com/file/d/1m-ItHqB-daiWAPaxfsW3KOv3kx_99mJk/view?usp=sharing)  
