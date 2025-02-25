@@ -26,107 +26,94 @@ class _DigitalCardState extends State<DigitalCard> {
                 // Background Image
                 Positioned.fill(
                   child: Image.asset(
-                    "assets/card_background.jpg",
+                    isFrozen ? "assets/freezecard.png" : "assets/card.png", // Change image based on freeze state
                     fit: BoxFit.cover,
                   ),
                 ),
+                // Card Details
+                Container(
+                  width: 250,
+                  height: 380,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white.withOpacity(0.15)), // Keep border if needed
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 60),
 
-                // Frosted Glass Blur Effect
-                BackdropFilter(
-                  filter: ImageFilter.blur(
-                      sigmaX: isFrozen ? 20 : 6, sigmaY: isFrozen ? 20 : 6),
-                  child: AnimatedOpacity(
-                    duration: Duration(milliseconds: 300),
-                    opacity: isFrozen ? 0.3 : 1.0,
-                    child: Container(
-                      width: 250,
-                      height: 380,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white.withOpacity(0.07),
-                        border: Border.all(color: Colors.white.withOpacity(0.15)),
-                      ),
-                      padding: EdgeInsets.all(16),
-                      child: Column(
+                      // Card Details
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Logos
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset("assets/yolo.svg", height: 26),
-                              Image.asset("assets/yesbank.png", height: 60),
-                            ],
-                          ),
-                          SizedBox(height: 30),
-
-                          // Card Details
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _buildCardText("8124"),
-                                  _buildCardText("4212"),
-                                  _buildCardText("3456"),
-                                  _buildCardText("7890"),
-                                ],
-                              ),
-                              Spacer(),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text("Expiry",
-                                      style:
-                                          TextStyle(color: Colors.grey, fontSize: 12)),
-                                  _buildCardText("01/28"),
-                                  SizedBox(height: 14),
-                                  Text("CVV",
-                                      style:
-                                          TextStyle(color: Colors.grey, fontSize: 12)),
-                                  Row(
-                                    children: [
-                                      _buildCardText(showCVV ? "123" : "***"),
-                                      SizedBox(width: 6),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            showCVV = !showCVV;
-                                          });
-                                        },
-                                        child: Icon(
-                                          showCVV
-                                              ? Icons.visibility_off
-                                              : Icons.visibility,
-                                          color: Colors.redAccent,
-                                          size: 18,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                          Padding(
+                            padding: EdgeInsets.only(left: 10), // Moves the column 10 pixels to the right
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildCardText("8124"),
+                                _buildCardText("4212"),
+                                _buildCardText("3456"),
+                                _buildCardText("7890"),
+                              ],
+                            ),
                           ),
                           Spacer(),
+                          if (!isFrozen) ...[
+  Column(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    children: [
+      Text("Expiry", style: TextStyle(color: Colors.grey, fontSize: 12)),
+      _buildCardText("01/28"),
+      SizedBox(height: 14),
+      Text("CVV", style: TextStyle(color: Colors.grey, fontSize: 12)),
+      Row(
+        children: [
+          _buildCardText(showCVV ? "123" : "***"),
+          SizedBox(width: 6),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                showCVV = !showCVV;
+              });
+            },
+            child: Icon(
+              showCVV ? Icons.visibility_off : Icons.visibility,
+              color: Colors.redAccent,
+              size: 18,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+],
 
-                          // Footer
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton.icon(
-                                onPressed: () {},
-                                icon: Icon(Icons.copy, color: Colors.redAccent, size: 16),
-                                label: Text("Copy Details",
-                                    style: TextStyle(color: Colors.redAccent, fontSize: 12)),
-                              ),
-                              Image.asset("assets/rupay.png", height: 35),
-                            ],
-                          ),
                         ],
                       ),
-                    ),
+                      // Footer
+                      if (!isFrozen) ...[
+  Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Padding(
+        padding: EdgeInsets.only(left: 0, top: 15),
+        child: TextButton.icon(
+          onPressed: () {},
+          icon: Icon(Icons.copy, color: Colors.redAccent, size: 16),
+          label: Text(
+            "Copy Details",
+            style: TextStyle(color: Colors.redAccent, fontSize: 12),
+          ),
+        ),
+      ),
+    ],
+  ),
+],
+
+                    ],
                   ),
                 ),
               ],
@@ -142,7 +129,6 @@ class _DigitalCardState extends State<DigitalCard> {
             onTap: () {
               setState(() {
                 isFrozen = !isFrozen;
-                print("Button Pressed: isFrozen = $isFrozen"); // Debugging print
               });
             },
             child: Material(
@@ -163,6 +149,14 @@ class _DigitalCardState extends State<DigitalCard> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
+                            color: isFrozen
+                                ? const Color.fromARGB(255, 211, 8, 8).withOpacity(1) // Red glow when frozen
+                                : Colors.white.withOpacity(1), // White glow when not frozen
+                            blurRadius: 2, // Soft glow
+                            spreadRadius: 0,
+                            offset: Offset(0, -1), // Positioned at the top
+                          ),
+                          BoxShadow(
                             color: Colors.black.withOpacity(0.4),
                             blurRadius: 10,
                             spreadRadius: 2,
@@ -178,8 +172,8 @@ class _DigitalCardState extends State<DigitalCard> {
                       ),
                       padding: EdgeInsets.all(18),
                       child: Icon(
-                         Icons.ac_unit,
-                        color: isFrozen ? Colors.red : Colors.white,
+                        Icons.ac_unit,
+                        color: isFrozen ? const Color.fromARGB(255, 211, 8, 8) : Colors.white,
                         size: 28,
                       ),
                     ),
@@ -207,10 +201,10 @@ class _DigitalCardState extends State<DigitalCard> {
         ? Container(
             width: 40,
             height: 18,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.6),
-              borderRadius: BorderRadius.circular(4),
-            ),
+            // decoration: BoxDecoration(
+            //   color: Colors.grey.withOpacity(0.6),
+            //   borderRadius: BorderRadius.circular(4),
+            // ),
           )
         : Text(
             text,
