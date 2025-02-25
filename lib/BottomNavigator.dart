@@ -9,9 +9,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 1; // Default selected index
 
   final List<Map<String, dynamic>> _navItems = [
-    {'icon': Icons.home_outlined, 'label': 'home'},
-    {'icon': Icons.qr_code_scanner, 'label': 'yolo pay'},
-    {'icon': Icons.percent, 'label': 'ginie'},
+    {'icon': Icons.home_outlined, 'label': 'Home'},
+    {'icon': Icons.qr_code_scanner, 'label': 'Yolo Pay'}, // Middle button
+    {'icon': Icons.percent, 'label': 'Ginie'},
   ];
 
   @override
@@ -21,71 +21,66 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       left: 0,
       right: 0,
       child: Container(
-        height: 90,
+        height: 150, // Adjusted height
         decoration: BoxDecoration(
-          color: Color(0xFF1a1a1a),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              offset: Offset(4, 4),
-              blurRadius: 8,
-            ),
-            BoxShadow(
-              color: Colors.white.withOpacity(0.05),
-              offset: Offset(-4, -4),
-              blurRadius: 8,
+          image: DecorationImage(
+            image: AssetImage('assets/Frame.png'), // Background image
+            fit: BoxFit.cover, // Cover the entire background
+          ),
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(_navItems.length, (index) {
+                bool isSelected = _selectedIndex == index;
+                bool isMiddle = index == 1; // Middle button
+
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = index),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        height: isMiddle ? 60 : 45, // Smaller circle for icons
+                        width: isMiddle ? 60 : 45,
+                        margin: EdgeInsets.only(bottom: isMiddle ? 10 : 0, left: isMiddle ? 0 : 45, right: isMiddle ? 0 : 45),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1a1a1a),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: isSelected
+                                  ? Colors.red.withOpacity(0.8) // Red glow when selected
+                                  : Colors.white.withOpacity(0.5), // White glow when not selected
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              offset: Offset(0, -2), // Light effect at top
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          _navItems[index]['icon'],
+                          color: isSelected ? Colors.red : Colors.white,
+                          size: isMiddle ? 30 : 24, // Adjusted icon size
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        _navItems[index]['label'],
+                        style: TextStyle(
+                          color: isSelected ? const Color.fromARGB(255, 255, 255, 255) : Colors.white,
+                          fontSize: 10, // Adjusted font size
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
             ),
           ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(_navItems.length, (index) {
-            bool isSelected = _selectedIndex == index;
-            return GestureDetector(
-              onTap: () => setState(() => _selectedIndex = index),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: isSelected ? Color(0xFF1a1a1a) : Colors.transparent,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: isSelected
-                          ? [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                offset: Offset(4, 4),
-                                blurRadius: 8,
-                              ),
-                              BoxShadow(
-                                color: Colors.white.withOpacity(0.05),
-                                offset: Offset(-4, -4),
-                                blurRadius: 8,
-                              ),
-                            ]
-                          : [],
-                    ),
-                    child: Icon(
-                      _navItems[index]['icon'],
-                      color: isSelected ? Colors.white : Colors.grey.shade500,
-                      size: 28,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    _navItems[index]['label'],
-                    style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.grey.shade600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
         ),
       ),
     );
