@@ -1,12 +1,10 @@
 # **Yolo Pay - Digital Payment App**  
 ### **Seamless & Secure Payments at Your Fingertips**  
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/06fda5dc-acc6-4cfc-be8a-79b90017a94d" width="300" />
-  <img src="https://github.com/user-attachments/assets/dec0fe2a-2d0c-4858-b2c6-34dfe32345ef" width="300" />
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/32aa5de5-0ada-40fa-968b-71a390b3f998" width="300" />
+  <img src="https://github.com/user-attachments/assets/6f8968e6-9704-442e-b57a-ac40cf60d06a" width="300" />
 </p>
-
----
 
 ## **📌 Overview**  
 **Yolo Pay** is a modern and stylish digital payment app with an intuitive **neumorphic UI**. It allows users to **pay with cards, scan QR codes, and manage transactions seamlessly**. The app is built using **Flutter**, ensuring smooth performance across platforms.  
