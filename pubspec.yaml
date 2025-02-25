@@ -25,11 +25,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/rupay.png
-    - assets/card_background.jpg
-    - assets/yolo.svg
-    - assets/yesbank.png
-    - assets/discount.png
     - assets/Frame.png
     - assets/card.png
     - assets/freezecard.png
