@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Color(0xFF141516),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 100),
+            child: PaymentModeSelector(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class PaymentModeSelector extends StatefulWidget {
   @override
   _PaymentModeSelectorState createState() => _PaymentModeSelectorState();
@@ -11,19 +32,20 @@ class _PaymentModeSelectorState extends State<PaymentModeSelector> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 20, top: 20), // Aligned to left side
+      margin: EdgeInsets.only(left: 20, top: 20), // Align to left side
       child: Row(
         children: [
-          _buildNeumorphicButton("pay"),
-          SizedBox(width: 12), // Space between buttons
-          _buildNeumorphicButton("card"),
+          _buildGlowingButton("pay"),
+          SizedBox(width: 16), // Space between buttons
+          _buildGlowingButton("card"),
         ],
       ),
     );
   }
 
-  Widget _buildNeumorphicButton(String mode) {
-    bool isSelected = _selectedMode == mode;
+  Widget _buildGlowingButton(String mode) {
+    bool isSelected = _selectedMode == mode; // Check if the button is selected
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -31,33 +53,34 @@ class _PaymentModeSelectorState extends State<PaymentModeSelector> {
         });
       },
       child: Container(
-        width: 120, // Adjust width for better visibility
-        height: 50,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 40),
         decoration: BoxDecoration(
-          color: Color(0xFF1a1a1a),
-          borderRadius: BorderRadius.circular(30), // Completely curved edges
+          borderRadius: BorderRadius.circular(40),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF121213),
+              Color(0xFF121213),
+            ],
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              offset: Offset(4, 4),
-              blurRadius: 8,
-            ),
-            BoxShadow(
-              color: Colors.white.withOpacity(0.1),
-              offset: Offset(-4, -4),
-              blurRadius: 8,
+              color: isSelected
+                  ? const Color.fromARGB(255, 211, 8, 8).withOpacity(1) // Red glow when selected
+                  : Colors.white.withOpacity(0.5), // White glow when not selected
+              blurRadius: 4, // Small blur for a subtle glow effect
+              offset: Offset(0, -3), // Offset to position the glow at the top
             ),
           ],
-          border: isSelected ? Border.all(color: mode == "card" ? Colors.red : Colors.white, width: 1.5) : null,
         ),
-        child: Center(
-          child: Text(
-            mode.toUpperCase(),
-            style: TextStyle(
-              color: isSelected ? (mode == "card" ? Colors.red : Colors.white) : Colors.grey.shade500,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+        child: Text(
+          mode.toUpperCase(),
+          style: TextStyle(
+            color: Colors.white, // Keep text color white
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SpaceGrotesk',
           ),
         ),
       ),
